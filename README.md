@@ -1,18 +1,24 @@
-# Salesforce DX Project: Next Steps
+**Component Overview**
+The B2B Product Stock Indicator is a custom Lightning Web Component (LWC) designed to be placed on product pages within a Salesforce B2B Commerce storefront. Its primary purpose is to provide a clear and immediate visual representation of a product's inventory status to the buyer. The component dynamically displays whether a product is "In Stock," "Low Stock," or "Out of Stock" based on its available quantity.
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+**Functionality**
+The component operates based on the available inventory of a product and a configurable threshold:
 
-## How Do You Plan to Deploy Your Changes?
+In Stock: When the product's quantity is above a predefined "low stock" threshold, the component displays a green indicator with the text "In Stock."
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+Low Stock: When the quantity is greater than zero but at or below the threshold, it shows an orange indicator with the text "Low Stock" to create a sense of urgency.
 
-## Configure Your Salesforce DX Project
+Out of Stock: If the quantity is zero, a red indicator with "Out of Stock" is displayed.
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+In addition to the status, the component also shows the exact number of units currently in stock (e.g., (25 units in stock)), providing precise information to the buyer.
 
-## Read All About It
+**Configuration**
+This component is designed for easy administration directly within the Experience Builder:
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+Stock Quantity (stockCount): This property is intended to be dynamically bound to the product's inventory. The default binding is 
+
+{!Product.Inventory.details.availableToOrder}, which automatically retrieves real-time inventory data from Salesforce B2B Commerce. 
+
+Low Stock Threshold (lowStockThreshold): An administrator can easily set an integer value for this property. This number defines the inventory level at which the component switches from the "In Stock" status to the "Low Stock" warning. The default is set to 10 units.
+
+This component can be placed on any community page, but it is specifically designed for Product Detail Pages where product inventory context is available.
